@@ -2,7 +2,7 @@ package com.enset.Dao;
 
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public final class ComplexImpl implements IComplex{
     final Double re;
     final  Double im;

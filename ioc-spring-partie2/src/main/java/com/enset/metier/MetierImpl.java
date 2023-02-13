@@ -5,13 +5,16 @@ import com.enset.Dao.IComplex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public final class MetierImpl implements IMetier{
-    @Autowired
+    //@Autowired // we remove Autowired when we use the constructor
     IComplex complex;
+
+
     public MetierImpl(IComplex complex) {
         this.complex = complex;
     }
+
     @Override
     public double RealFois2() {
         return complex.realPart()*2;
