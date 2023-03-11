@@ -13,9 +13,9 @@ import java.util.Date;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
-public class Consultation implements Serializable {
+public class Appointment implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+    private int id;
     @Temporal(TemporalType.DATE)
     private Date date;
     @Temporal(TemporalType.TIME)
@@ -23,8 +23,5 @@ public class Consultation implements Serializable {
     @Temporal(TemporalType.TIME)
     private Time endTime;
     @ManyToOne
-    private Patient patient;
-    @ManyToOne
-    private Doctor doctor;
-    private String symptoms;
+    private Consultation consultation;
 }

@@ -18,6 +18,6 @@ public class Patient implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthday;
     private String phone;
-    private boolean isSingle;
-
+    private boolean malade;
+    private int score;
 }
