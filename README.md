@@ -1,6 +1,6 @@
 # TP JEE ETTOUNANI ABDERRAHMANE
 
-<table>
+<table width="100">
 <thead>
 <tr>
 <th>App</th>
