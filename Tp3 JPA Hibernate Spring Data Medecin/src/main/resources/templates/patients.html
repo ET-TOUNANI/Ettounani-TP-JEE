@@ -135,8 +135,10 @@
                     <div class="col-sm-8"><h2>Liste des <b>Patients</b></h2></div>
                     <div class="col-sm-4">
                         <div class="search-box">
-                            <i class="material-icons">&#xE8B6;</i>
-                            <input type="text" class="form-control" placeholder="Search&hellip;">
+                            <form method="get" th:action="@{patient}">
+                                <i class="material-icons">&#xE8B6;</i>
+                                <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="Search&hellip;">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -163,15 +165,15 @@
                     <td th:text="${p.getScore()}"></td>
                     <td>
                         <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        <a th:href="@{delete(id=${p.getId()})}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
                 </tr>
                 </tbody>
             </table>
             <div class="clearfix">
-                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                <div class="hint-text">Showing <b th:text="${size}"></b> out of <b th:text="${listPatients.size()*size}"></b> entries</div>
                 <ul class="pagination" th:each="page,status:${pages}">
-                    <li th:class="${status.index==current?'page-item active':'page-item'}" ><a th:href="@{patient(page=${status.index})}"  th:text="${status.count}" class="page-link"></a></li>
+                    <li th:class="${status.index==current?'page-item active':'page-item'}" ><a th:href="@{patient(page=${status.index},keyword=${keyword})}"  th:text="${status.count}" class="page-link"></a></li>
                 </ul>
             </div>
         </div>

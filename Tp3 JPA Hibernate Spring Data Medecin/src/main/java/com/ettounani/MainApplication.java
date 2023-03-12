@@ -25,7 +25,7 @@ public class MainApplication {
     @Bean
     CommandLineRunner commandLineRunner(PatienRepos patienRepos, DoctorRepos doctorRepos, ConsultationRepos consultationRepos, AppointmentRepos appointmentRepos){
         return args -> {
-            Patient p1=new Patient(0,"abderrahmane",new Date(),"0690071837",true,12);
+           /*Patient p1=new Patient(0,"abderrahmane",new Date(),"0690071837",true,12);
             patienRepos.save(p1);
             patienRepos.save(new Patient(0,"Khadija",new Date(),"06277272",false,20));
             patienRepos.save(new Patient(0,"Oumaima",new Date(),"0682923",true,22));
@@ -38,6 +38,7 @@ public class MainApplication {
             appointmentRepos.save(new Appointment(0,new Date(),new Time(21,20,2),new Time(22,30,0),c1));
 
             patienRepos.findAll().forEach(p-> System.out.println(p.getName()));
+*/
         };
     }
 

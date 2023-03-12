@@ -7,15 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Consultation implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+    private int id;
     @Temporal(TemporalType.DATE)
     private Date date;
     @Temporal(TemporalType.TIME)

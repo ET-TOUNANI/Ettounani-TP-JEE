@@ -17,12 +17,21 @@ public class PatientController {
     private PatienRepos patienRepos;
 
     @GetMapping(path = "/patient")
-    public String patients(Model model, @RequestParam(name = "page",defaultValue = "0") int page,@RequestParam(name = "size",defaultValue = "5")int size){
-        Page<Patient> patients=patienRepos.findAll(PageRequest.of(page,size));
+    public String patients(Model model,
+                           @RequestParam(name = "page",defaultValue = "0") int page,
+                           @RequestParam(name = "size",defaultValue = "5")int size,
+                           @RequestParam(name = "keyword",defaultValue = "")String keyword){
+        Page<Patient> patients=patienRepos.findAllByNameContains(keyword,PageRequest.of(page,size));
         model.addAttribute("listPatients",patients.getContent());
         model.addAttribute("pages",new int[patients.getTotalPages()]);
         model.addAttribute("current",page);
+        model.addAttribute("size",size);
+        model.addAttribute("keyword",keyword);
         return "patients";
     }
-
+    @GetMapping(path = "/delete")
+    public String delete(long id){
+        patienRepos.deleteById(id);
+        return "redirect:/patient";
+    }
 }
