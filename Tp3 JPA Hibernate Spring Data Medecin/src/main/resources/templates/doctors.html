@@ -171,7 +171,7 @@
                 </tbody>
             </table>
             <div class="clearfix">
-                <div class="hint-text">Showing <b th:text="${size}"></b> out of <b th:text="${listDoctors.size()*size}"></b> entries</div>
+                <div class="hint-text">Showing <b th:text="${size}"></b> out of <b th:text="${allPages}"></b> entries</div>
                 <ul class="pagination" th:each="page,status:${pages}">
                     <li th:class="${status.index==current?'page-item active':'page-item'}" ><a th:href="@{doctors(page=${status.index},keyword=${keyword})}"  th:text="${status.count}" class="page-link"></a></li>
                 </ul>

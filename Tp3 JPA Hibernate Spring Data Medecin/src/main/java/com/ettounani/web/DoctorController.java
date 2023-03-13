@@ -26,6 +26,7 @@ public class DoctorController {
         model.addAttribute("listDoctors",doctors.getContent());
         model.addAttribute("pages",new int[doctors.getTotalPages()]);
         model.addAttribute("current",page);
+        model.addAttribute("allPages", doctors.getTotalElements());
         model.addAttribute("size",size);
         model.addAttribute("keyword",keyword);
         return "doctors";

@@ -27,6 +27,7 @@ public class AppointmentController {
         model.addAttribute("listAppointments",appointments.getContent());
         model.addAttribute("pages",new int[appointments.getTotalPages()]);
         model.addAttribute("current",page);
+        model.addAttribute("allPages", appointments.getTotalElements());
         model.addAttribute("size",size);
         model.addAttribute("keyword",keyword);
         return "appointements";

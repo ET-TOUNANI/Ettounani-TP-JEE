@@ -25,6 +25,7 @@ public class ConsultationController {
         model.addAttribute("listConsults",consultations.getContent());
         model.addAttribute("pages",new int[consultations.getTotalPages()]);
         model.addAttribute("current",page);
+        model.addAttribute("allPages", consultations.getTotalElements());
         model.addAttribute("size",size);
         model.addAttribute("keyword",keyword);
         return "consultations";

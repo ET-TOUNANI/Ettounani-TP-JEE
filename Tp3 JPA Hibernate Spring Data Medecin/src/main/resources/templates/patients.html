@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>ETTOUNANI HOSPITAL</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         body {
@@ -132,14 +134,17 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Liste des <b>Patients</b></h2></div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4"><h2>Liste des <b>Patients</b></h2></div>
+                    <div class="col-sm-6">
                         <div class="search-box">
                             <form method="get" th:action="@{patient}">
                                 <i class="material-icons">&#xE8B6;</i>
                                 <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="Search&hellip;">
                             </form>
                         </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#addPatientModal" class="btn btn-success pt-1">Add Patient</button>
                     </div>
                 </div>
             </div>
@@ -171,7 +176,7 @@
                 </tbody>
             </table>
             <div class="clearfix">
-                <div class="hint-text">Showing <b th:text="${size}"></b> out of <b th:text="${listPatients.size()*size}"></b> entries</div>
+                <div class="hint-text">Showing <b th:text="${size}"></b> out of <b th:text="${allPages}"></b> entries</div>
                 <ul class="pagination" th:each="page,status:${pages}">
                     <li th:class="${status.index==current?'page-item active':'page-item'}" ><a th:href="@{patient(page=${status.index},keyword=${keyword})}"  th:text="${status.count}" class="page-link"></a></li>
                 </ul>
@@ -179,5 +184,68 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModal"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Patient</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" required="" placeholder="Your name...">
+                        <label for="floatingInput">Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingPhone" required="" placeholder="06.......">
+                        <label for="floatingPhone">Phone</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingScore" required="" placeholder="Score">
+                        <label for="floatingScore">Score</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="floatingDate" required="" placeholder="DD/MM/YYYY">
+                        <label for="floatingDate">Birthday Date</label>
+                    </div>
+                        <input type="checkbox" id="floatingMalade" required="">
+                        <label for="floatingMalade">isMalade</label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary" onclick="add()">
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function add() {
+        var patient = {
+            name: document.querySelector("#floatingInput").value,
+            phone: document.querySelector("#floatingPhone").value,
+            birth: new Date(document.querySelector("#floatingDate").value),
+            malade: (document.querySelector("#floatingMalade").value==='on')?true:false,
+            score: parseInt(document.querySelector("#floatingScore").value)
+        };
+
+        axios.post('http://localhost:8082/addPatient', patient)
+            .then(response => {
+                console.log(response.data);
+                    location.reload();
+                // Handle success
+            })
+            .catch(error => {
+                console.log(error);
+                // Handle error
+            });
+    }
+</script>
 </body>
 </html>
