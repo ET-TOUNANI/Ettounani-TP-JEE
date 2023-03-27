@@ -24,5 +24,9 @@
 <td>TP 3 : JPA Hibernate SpringData (Medecin, Patient...)</td>
 <td><a href="https://github.com/ET-TOUNANI/Ettounani-TP-JEE/tree/main/Tp3%20JPA%20Hibernate%20Spring%20Data%20Medecin">Click me</a></td>
 </tr>
+<tr>
+<td>TP 4 : La création d'un Web service (JaxWS) </td>
+<td><a href="https://github.com/ET-TOUNANI/Ettounani-TP-JEE/tree/main/WebService">Click me</a></td>
+</tr>
 </tbody>
 </table>
