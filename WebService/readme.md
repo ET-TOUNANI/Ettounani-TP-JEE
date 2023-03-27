@@ -1,5 +1,5 @@
 # La création d'un web service
-<img src="demo/app.png">
+<img src="webServiceServer/demo/app.png">
 ## Dependencies
 
 ```sh
@@ -130,12 +130,12 @@ public class MainServer {
 ```
 
 ## Demo
-<img src="demo/http.png">
+<img src="webServiceServer/demo/http.png">
 > SoapUI
 
-<img src="demo/new.png">
-<img src="demo/SoapUI.png">
-<img src="demo/req.png">
+<img src="webServiceServer/demo/new.png">
+<img src="webServiceServer/demo/SoapUI.png">
+<img src="webServiceServer/demo/req.png">
 
 > Java Client 
 
