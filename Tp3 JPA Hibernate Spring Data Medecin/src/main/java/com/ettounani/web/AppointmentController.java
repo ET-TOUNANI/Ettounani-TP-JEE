@@ -18,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class AppointmentController {
     private AppointmentRepos appointmentRepos;
-    @GetMapping(path = "/appointements")
+    @GetMapping(path = "/user/appointements")
     public String appointments(Model model, @RequestParam(name = "page",defaultValue = "0")int page,
                                 @RequestParam(name = "size",defaultValue = "5")int size,
                                 @RequestParam(name = "keyword",defaultValue = "") String keyword
@@ -33,7 +33,7 @@ public class AppointmentController {
         return "appointements";
     }
 
-    @GetMapping(path = "/deleteAppointement")
+    @GetMapping(path = "/admin/deleteAppointement")
     public String delete(long id){
         appointmentRepos.deleteById(id);
         return "redirect:/appointements";

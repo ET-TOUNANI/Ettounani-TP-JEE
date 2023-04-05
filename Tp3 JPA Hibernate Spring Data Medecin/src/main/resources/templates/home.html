@@ -1,73 +1,72 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>ETTOUNANI HOSPITAL</title>
-    <link rel="stylesheet" href="webjars/bootstrap/5.2.3/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container-fluid mb-5">
-    <div class="text-center mt-5 mb-4">
-        <h1>Welcome to Hospital ETTOUNANI</h1>
-    </div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<div layout:fragment="content1">
+    <div class="container-fluid mb-5">
+        <div class="text-center mt-5 mb-4">
+            <h1>Welcome to Hospital ETTOUNANI</h1>
+        </div>
 
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
 
-            <div class="col-md-4 col-xl-3" >
-                <a th:href="@{patient}" class="d-flex">
-                <div class="card bg-c-blue order-card">
-                    <div class="card-flex d-flex align-items-center justify-content-center p-5">
-                        <img height="100" width="100" src="https://cdn-icons-png.flaticon.com/512/4228/4228704.png">
-                        <h2 class="text-right"><span>Patients</span></h2>
+                <div class="col-md-4 col-xl-3" >
+                    <a th:href="@{/user/patient}" class="d-flex">
+                        <div class="card bg-c-blue order-card">
+                            <div class="card-flex d-flex align-items-center justify-content-center p-5">
+                                <img height="100" width="100" src="https://cdn-icons-png.flaticon.com/512/4228/4228704.png">
+                                <h2 class="text-right"><span>Patients</span></h2>
 
-                    </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
 
 
-            <div class="col-md-4 col-xl-3">
-                <a th:href="@{doctors}" class="d-flex">
-                <div class="card bg-c-green order-card">
-                    <div class="card-flex d-flex align-items-center justify-content-center p-5">
-                        <img height="100" width="100" src="https://www.freepnglogos.com/uploads/doctor-png/doctor-bulk-billing-doctors-chapel-hill-health-care-medical-3.png">
-                        <h2 class="text-right"><span>Doctors</span></h2>
+                <div class="col-md-4 col-xl-3">
+                    <a th:href="@{/user/doctors}" class="d-flex">
+                        <div class="card bg-c-green order-card">
+                            <div class="card-flex d-flex align-items-center justify-content-center p-5">
+                                <img height="100" width="100" src="https://www.freepnglogos.com/uploads/doctor-png/doctor-bulk-billing-doctors-chapel-hill-health-care-medical-3.png">
+                                <h2 class="text-right"><span>Doctors</span></h2>
 
-                    </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
 
 
-            <div class="col-md-4 col-xl-3" >
-                <a th:href="@{consultations}" class="d-flex">
-                <div class="card bg-c-yellow order-card">
-                    <div class="card-flex d-flex align-items-center justify-content-center p-5">
-                        <img height="100" width="100" src="https://cdn-icons-png.flaticon.com/512/1478/1478254.png">
-                        <h2 class="text-right"><span>Consultations</span></h2>
+                <div class="col-md-4 col-xl-3" >
+                    <a th:href="@{/user/consultations}" class="d-flex">
+                        <div class="card bg-c-yellow order-card">
+                            <div class="card-flex d-flex align-items-center justify-content-center p-5">
+                                <img height="100" width="100" src="https://cdn-icons-png.flaticon.com/512/1478/1478254.png">
+                                <h2 class="text-right"><span>Consultations</span></h2>
 
-                    </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
 
 
-            <div class="col-md-4 col-xl-3">
-                <a  th:href="@{appointements}" class="d-flex">
-                <div class="card bg-c-pink order-card">
-                    <div class="card-flex d-flex align-items-center justify-content-center p-5">
-                        <img height="100" width="100" src="https://png.pngtree.com/png-clipart/20190920/original/pngtree-hospital-quick-appointment-doctor-vector-png-image_4631707.jpg">
-                        <h2 class="text-right"><span>Appointments</span></h2>
+                <div class="col-md-4 col-xl-3">
+                    <a  th:href="@{/user/appointements}" class="d-flex">
+                        <div class="card bg-c-pink order-card">
+                            <div class="card-flex d-flex align-items-center justify-content-center p-5">
+                                <img height="100" width="100" src="https://png.pngtree.com/png-clipart/20190920/original/pngtree-hospital-quick-appointment-doctor-vector-png-image_4631707.jpg">
+                                <h2 class="text-right"><span>Appointments</span></h2>
 
-                    </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
 
+            </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>

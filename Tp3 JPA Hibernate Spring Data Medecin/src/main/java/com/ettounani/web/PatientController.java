@@ -21,7 +21,7 @@ import java.util.List;
 public class PatientController {
     private PatienRepos patienRepos;
 
-    @GetMapping(path = "/patient")
+    @GetMapping(path = "/user/patient")
     public String patients(Model model,
                            @RequestParam(name = "page",defaultValue = "0") int page,
                            @RequestParam(name = "size",defaultValue = "5")int size,
@@ -35,9 +35,8 @@ public class PatientController {
         model.addAttribute("keyword",keyword);
         return "patients";
     }
-    @PostMapping(path = "/addPatient")
+    @PostMapping(path = "/admin/addPatient")
     public ResponseEntity<String> addPatient(@RequestBody Patient patient){
-
         try {
             patienRepos.save(patient);
             return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
@@ -45,9 +44,9 @@ public class PatientController {
             return new ResponseEntity<>("Failed to create user", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping(path = "/delete")
+    @GetMapping(path = "/admin/delete")
     public String delete(long id){
         patienRepos.deleteById(id);
-        return "redirect:/patient";
+        return "redirect:/user/patient";
     }
 }

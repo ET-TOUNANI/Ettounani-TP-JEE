@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class DoctorController {
     private DoctorRepos doctorRepos;
 
-    @GetMapping(path = "/doctors")
+    @GetMapping(path = "/user/doctors")
     public String doctors(Model model,
                            @RequestParam(name = "page",defaultValue = "0") int page,
                            @RequestParam(name = "size",defaultValue = "5")int size,
@@ -31,9 +31,9 @@ public class DoctorController {
         model.addAttribute("keyword",keyword);
         return "doctors";
     }
-    @GetMapping(path = "/deleteDoctor")
+    @GetMapping(path = "/admin/deleteDoctor")
     public String delete(long id){
         doctorRepos.deleteById(id);
-        return "redirect:/doctors";
+        return "redirect:/user/doctors";
     }
 }

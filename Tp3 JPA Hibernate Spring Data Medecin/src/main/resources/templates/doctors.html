@@ -28,7 +28,7 @@
                     <th>Phone</th>
                     <th>Speciality</th>
                     <th>Available</th>
-                    <th>Actions</th>
+                    <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,9 +39,9 @@
                     <td th:text="${p.getPhone()}"></td>
                     <td th:text="${p.getSpeciality()}"></td>
                     <td th:text="${p.isDesponible()}"></td>
-                    <td>
+                    <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
                         <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a th:href="@{deleteDoctor(id=${p.getId()})}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        <a th:href="@{/admin/deleteDoctor(id=${p.getId()})}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -49,7 +49,7 @@
             <div class="clearfix">
                 <div class="hint-text">Showing <b th:text="${size}"></b> out of <b th:text="${allPages}"></b> entries</div>
                 <ul class="pagination" th:each="page,status:${pages}">
-                    <li th:class="${status.index==current?'page-item active':'page-item'}" ><a th:href="@{doctors(page=${status.index},keyword=${keyword})}"  th:text="${status.count}" class="page-link"></a></li>
+                    <li th:class="${status.index==current?'page-item active':'page-item'}" ><a th:href="@{/user/doctors(page=${status.index},keyword=${keyword})}"  th:text="${status.count}" class="page-link"></a></li>
                 </ul>
             </div>
         </div>

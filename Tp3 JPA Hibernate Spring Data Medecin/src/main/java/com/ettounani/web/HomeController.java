@@ -15,10 +15,10 @@ public class HomeController {
 
     @GetMapping(path = "/")
     public String home(){
-        return "redirect:/home";
+        return "redirect:/user/home";
     }
 
-    @GetMapping(path = "/home")
+    @GetMapping(path = "/user/home")
     public String homePage(){
         return "home";
     }
