@@ -11,9 +11,15 @@ import java.util.List;
 @AllArgsConstructor
 public class ContactController {
     private final IContactRepo contactRepo;
+    @GetMapping("/")
+    public void redirectall(){
 
+        System.out.println("hi");
+    }
     @GetMapping("/contacts")
     public List<Contact> all(){
+
+        System.out.println("jooo");
         return contactRepo.findAll();
     }
     @PostMapping("/contact")
@@ -32,11 +38,12 @@ public class ContactController {
     Contact updateContact(@RequestBody Contact contact, @PathVariable Long id) {
         return contactRepo.findById(id)
                 .map(contact1 -> {
+                    contact1.setFirstName(contact.getFirstName());
+                    contact1.setPhone(contact.getPhone());
+                    contact1.setLastName(contact.getLastName());
                     contact1.setEmail(contact.getEmail());
-                    contact1.setNom(contact.getNom());
-                    contact1.setTel(contact.getTel());
-                    contact1.setPrenom(contact.getPrenom());
-                    contact1.setTel(contact.getTel());
+                    contact1.setGender(contact.getGender());
+                    contact1.setType(contact.getType());
                     return contactRepo.save(contact1);
                 })
                 .orElseGet(() -> {
