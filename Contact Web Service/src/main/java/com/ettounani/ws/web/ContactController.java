@@ -30,8 +30,10 @@ public class ContactController {
     Contact one(@PathVariable Long id) {
         return contactRepo.findById(id).isPresent()?contactRepo.findById(id).get():new Contact();
     }
-    @DeleteMapping("/contacts/{id}")
+    @DeleteMapping("/deleteContacts/{id}")
     void deleteContact(@PathVariable Long id) {
+
+        System.out.println("delete"+id);
         contactRepo.deleteById(id);
     }
     @PutMapping("/contacts/{id}")
