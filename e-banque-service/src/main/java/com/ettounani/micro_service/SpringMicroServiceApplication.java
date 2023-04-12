@@ -25,7 +25,7 @@ public class SpringMicroServiceApplication {
             for (int i = 0; i < 10; i++) {
                 Compte compte = Compte.builder()
                         .id(UUID.randomUUID().toString())
-                        .type(Math.random() > 0.5 ? TypeCompte.CURRENT_ACOUNT : TypeCompte.SAVING_ACOUNT)
+                        .type(Math.random() > 0.5 ? TypeCompte.CURRENT_ACCOUNT : TypeCompte.SAVING_ACCOUNT)
                         .balance(1000 + Math.random() * 20000)
                         .createDate(new Date())
                         .currency("MAD")
