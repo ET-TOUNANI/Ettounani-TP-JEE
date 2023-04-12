@@ -24,5 +24,6 @@ public class Compte {
     private Double balance;
     private String currency;
     @Enumerated(EnumType.STRING)
+
     private TypeCompte type;
 }
