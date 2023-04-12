@@ -241,5 +241,138 @@ public class CompteRestfullController {
 }
 ```
 
+# GraphQL
+### Schema.graphqls
+```GraphQL
+type Query{
+    accountsList : [Compte],
+    findAccount(id:String):Compte
+}
+type Mutation {
+    addAccount(compte: BankAccountRequestDTO) : Compte,
+    updateAccount(id:String,compte: BankAccountRequestDTO):Compte,
+    deleteAccount(id:String):Boolean
+}
+type Compte{
+    id :String,
+    createDate : Float,
+    balance : Float,
+    currency : String,
+    type:String
+}
+input BankAccountRequestDTO{
+    balance : Float,
+    currency : String,
+    type:String
+}
+```
+### Controller
+```Java
+@Controller @AllArgsConstructor
+public class BankServiceControllerGraohql {
+    private CompteRepository compteRepository;
+    private AccountService accountService;
+    private AccountMapper accountMapper;
+    @QueryMapping
+    public List<Compte> accountsList(){
+        return compteRepository.findAll();
+    }
+    @QueryMapping
+    public Compte findAccount(@Argument String id){
+        return compteRepository.findById(id).orElseThrow(()->new RuntimeException("account not founds"));
+    }
+    @MutationMapping
+    public BankAccountResponseDTO addAccount(@Argument BankAccountRequestDTO compte){
+        return accountService.addAccount(compte);
+    }
+    @MutationMapping
+    public BankAccountResponseDTO updateAccount(@Argument String id,@Argument BankAccountRequestDTO compte){
+        return accountService.updateCompte(id,accountMapper.fromRequestDTO(compte));
+    }
+    @MutationMapping
+    public Boolean deleteAccount(@Argument String id){
+         accountService.deleteById(id);
+         return true;
+    }
+}
+```
+### Exception Handler
+```Java
+@Component
+public class ExceptionHandler extends DataFetcherExceptionResolverAdapter {
+    @Override
+    protected GraphQLError resolveToSingleError(Throwable ex, DataFetchingEnvironment env) {
+        return new GraphQLError() {
+            @Override
+            public String getMessage() {
+                return ex.getMessage();
+            }
+            @Override
+            public List<SourceLocation> getLocations() {
+                return null;
+            }
+            @Override
+            public ErrorClassification getErrorType() {
+                return null;
+            }
+        };
+    }
+}
+
+```
+
+### Testing
+> find an Account By ID
+```GraphQL
+query {
+  findAccount(id:"abb3e8c4-98a9-4a7b-9207-972b784bcbae"){
+  	type,balance,currency
+  }
+}
+```
+> find all Accounts
+```GraphQL
+query{
+    accountsList{
+        id
+    }
+}
+```
+> Add a new Account
+```GraphQL
+mutation($t:String,$b:Float,$c:String){
+    addAccount(compte:{
+        balance:$b,
+        currency:$c,
+        type:$t
+    }){
+        id,balance,currency,type
+    }
+}
+```
+> update an Account 
+```GraphQL
+mutation($id:String,$t:String,$b:Float,$c:String){
+    updateAccount(
+        id:$id,
+        compte:{
+            balance:$b,
+            currency:$c,
+            type:$t
+        })
+        {
+            id,balance,currency,type
+        }
+}
+```
+> delete an Account
+```GraphQL
+mutation($id:String){
+    deleteAccount(
+        id:$id
+    )
+}
+```
+
 # Author
 <a href="https://abbo.vercel.app/">Abderrahmane ETTOUNANI</a>
