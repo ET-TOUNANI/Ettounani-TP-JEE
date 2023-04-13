@@ -3,8 +3,10 @@ package com.ettounani.micro_service.web;
 import com.ettounani.micro_service.dto.BankAccountRequestDTO;
 import com.ettounani.micro_service.dto.BankAccountResponseDTO;
 import com.ettounani.micro_service.entities.Compte;
+import com.ettounani.micro_service.entities.Customer;
 import com.ettounani.micro_service.mappers.AccountMapper;
 import com.ettounani.micro_service.repository.CompteRepository;
+import com.ettounani.micro_service.repository.CustomerRepository;
 import com.ettounani.micro_service.service.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -19,10 +21,16 @@ public class BankServiceControllerGraohql {
     private CompteRepository compteRepository;
     private AccountService accountService;
     private AccountMapper accountMapper;
+    private CustomerRepository customerRepository;
     @QueryMapping
     public List<Compte> accountsList(){
         return compteRepository.findAll();
     }
+    @QueryMapping
+    public List<Customer> customerList(){
+        return customerRepository.findAll();
+    }
+
     @QueryMapping
     public Compte findAccount(@Argument String id){
         return compteRepository.findById(id).orElseThrow(()->new RuntimeException("account not founds"));

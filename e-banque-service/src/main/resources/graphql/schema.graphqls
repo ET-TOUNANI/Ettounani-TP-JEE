@@ -1,18 +1,25 @@
 type Query{
     accountsList : [Compte],
     findAccount(id:String):Compte
+    customerList:[Customer]
 }
 type Mutation {
     addAccount(compte: BankAccountRequestDTO) : Compte,
     updateAccount(id:String,compte: BankAccountRequestDTO):Compte,
     deleteAccount(id:String):Boolean
 }
+type Customer{
+    id :ID,
+    name : String,
+    comptes:[Compte]
+}
 type Compte{
     id :String,
     createDate : Float,
     balance : Float,
     currency : String,
-    type:String
+    type:String,
+    customer:Customer
 }
 input BankAccountRequestDTO{
     balance : Float,
