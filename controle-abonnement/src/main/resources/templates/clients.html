@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<div layout:fragment="content1">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-4"><h2>Liste des <b>Clients</b></h2></div>
+                    <div class="col-sm-6">
+                        <div class="search-box">
+                            <form method="get" th:action="@{/user/client}">
+                                <i class="material-icons">&#xE8B6;</i>
+                                <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="Search&hellip;">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#addClientModal" class="btn btn-success pt-1">Add Client</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p:${listClients}">
+                    <td th:text="${p.getId()}"></td>
+                    <td th:text="${p.getName()}"></td>
+                    <td th:text="${p.getEmail()}"></td>
+                    <td th:text="${p.getUsername()}"></td>
+
+                    <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a onclick="return confirm('Etes vous sure ?')" th:href="@{/admin/deleteClient(id=${p.getId()})}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <div class="hint-text">Showing <b th:text="${size}"></b> out of <b th:text="${allPages}"></b> entries</div>
+                <ul class="pagination" th:each="page,status:${pages}">
+                    <li th:class="${status.index==current?'page-item active':'page-item'}" ><a th:href="@{/user/client(page=${status.index},keyword=${keyword})}"  th:text="${status.count}" class="page-link"></a></li>
+                </ul>
+            </div>
+        </div>
+<!-- Modal -->
+<div class="modal fade" id="addClientModal" tabindex="-1" aria-labelledby="addClientModal"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Client</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" required="" placeholder="Your name...">
+                        <label for="floatingInput">Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingEmail" required="" placeholder="Your email...">
+                        <label for="floatingEmail">Email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingUsername" required="" placeholder="Your Username ...">
+                        <label for="floatingUsername">Username</label>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary" onclick="add()">
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function add() {
+        var client = {
+            name: document.querySelector("#floatingInput").value,
+            email: document.querySelector("#floatingEmail").value,
+            username: document.querySelector("#floatingUsername").value
+        };
+
+        axios.post('http://localhost:8082/admin/addClient', client)
+            .then(response => {
+                console.log(response.data);
+                    location.reload();
+                // Handle success
+            })
+            .catch(error => {
+                console.log(error);
+                // Handle error
+            });
+    }
+</script>
+</div>
+
+</body>
+</html>

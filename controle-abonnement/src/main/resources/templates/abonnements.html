@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<div layout:fragment="content1">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-4"><h2>Liste des <b>Abonnements</b></h2></div>
+                    <div class="col-sm-6">
+                        <div class="search-box">
+                            <form method="get" th:action="@{/user/abonnement}">
+                                <i class="material-icons">&#xE8B6;</i>
+                                <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="Search&hellip;">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#addAbonnementModal" class="btn btn-success pt-1">Add Abonnement</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Client Name</th>
+                    <th>Solde</th>
+                    <th>Montant Mensuel</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p:${listAbonnements}">
+                    <td th:text="${p.getId()}"></td>
+                    <td th:text="${p.getClient().getName()}"></td>
+                    <td th:text="${p.getSolde()}"></td>
+                    <td th:text="${p.getMontantMensuel()}"></td>
+                    <td th:text="${p.getType()}"></td>
+                    <td th:text="${p.getDate()}"></td>
+
+                    <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a onclick="return confirm('Etes vous sure ?')" th:href="@{/admin/delete(id=${p.getId()})}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <div class="hint-text">Showing <b th:text="${size}"></b> out of <b th:text="${allPages}"></b> entries</div>
+                <ul class="pagination" th:each="page,status:${pages}">
+                    <li th:class="${status.index==current?'page-item active':'page-item'}" ><a th:href="@{/user/abonnement(page=${status.index},keyword=${keyword})}"  th:text="${status.count}" class="page-link"></a></li>
+                </ul>
+            </div>
+        </div>
+<!-- Modal -->
+<div class="modal fade" id="addAbonnementModal" tabindex="-1" aria-labelledby="addAbonnementModal"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Abonnement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" th:name="solde" required="" placeholder="Solde...">
+                        <label for="floatingInput">Solde</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingMontant" th:name="montantMensuel" required="" placeholder="Montant Mensuel ...">
+                        <label for="floatingMontant">Montant Mensuel</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" aria-label="Type"  id="type" th:name="type">
+                            <option value="GSM">GSM</option>
+                            <option value="INTERNET">INTERNET</option>
+                            <option value="TELEPHONE_FIXE">TELEPHONE_FIXE</option>
+                        </select>
+                    </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" aria-label="Type" id="client"  th:name="client">
+
+                        <option th:each="c:${listClients2}" th:text="${c.getName()}" th:value="${c.getId()}"></option>
+                    </select>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingDate" th:name="date" required="" placeholder="DD-MM-YYYY">
+                    <label for="floatingDate">Date</label>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary" onclick="add()"  >
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script>
+    function add() {
+        var abonnement = {
+            solde: document.querySelector("#floatingInput").value,
+            montantMensuel: document.querySelector("#floatingMontant").value,
+            date: new Date(document.querySelector("#floatingDate").value),
+            type: document.querySelector("#type").value,
+            clientId: document.querySelector("#client").value,
+        };
+
+        axios.post('http://localhost:8082/admin/addAbonnement', abonnement)
+            .then(response => {
+                console.log(response.data);
+                location.reload();
+                // Handle success
+            })
+            .catch(error => {
+                console.log(error);
+                location.reload();
+                // Handle error
+            });
+    }
+</script>
+</body>
+</html>
