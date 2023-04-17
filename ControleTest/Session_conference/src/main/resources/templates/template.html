@@ -3,10 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>ETTOUNANI HOSPITAL</title>
+    <title>ETTOUNANI</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
@@ -135,25 +134,20 @@
                 <a class="nav-link active" th:href="@{/}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/patient}">Patient</a>
+                <a class="nav-link" th:href="@{/user/session}">Session</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/doctors}">Medecin</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/consultations}">Consultation</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/appointements}">Rendez-vous</a>
+                <a class="nav-link" >chercher</a>
             </li>
 
         </ul>
-        <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" th:text="${#authentication.name}" data-bs-toggle="dropdown">
+        <div class="dropdown"><!--th:text="${#authentication.name}"-->
+            <button type="button" class="btn btn-primary dropdown-toggle"  data-bs-toggle="dropdown">
+                You
             </button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Profile</a></li>
-                <form th:action="@{/logout}"  method="post">
+                <form   method="post"><!--th:action="@{/logout}"-->
                     <button type="submit">
                         Log out
                     </button>
