@@ -28,12 +28,17 @@
 <td>TP 5 : La création d'un Web service (JaxWS) </td>
 <td><a href="https://github.com/ET-TOUNANI/Ettounani-TP-JEE/tree/main/WebService">Click me</a></td>
 </tr>
+<tr>
 <td>TP 5' : Web services SOAP WSDL UDDI </td>
 <td><a href="https://github.com/ET-TOUNANI/Ettounani-TP-JEE/tree/main/WebService">Click me</a></td>
 </tr>
-
+<tr>
 <td>TP 6 : Mise en oeuvre d'un micro-service </td>
 <td><a href="https://github.com/ET-TOUNANI/Ettounani-TP-JEE/tree/main/e-banque-service">Click me</a></td>
+</tr>
+<tr>
+<td>TP 7 : Mise en oeuvre d'une architecture micro-services avec Spring cloud </td>
+<td><a href="https://github.com/ET-TOUNANI/Ettounani-TP-JEE/tree/main/bank-account-service">Click me</a></td>
 </tr>
 
 </tbody>
